@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43 (38999) - http://www.bohemiancoding.com/sketch -->
+    <title>Google Analytics</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Plugin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Google-Analytics" transform="translate(-7.000000, -8.000000)" fill-rule="nonzero">
+            <g transform="translate(7.000000, 8.000000)" id="Shape">
+                <path d="M7.14168527,9.10470703 L14.2857143,1.63652344 L14.2857143,1.20744141 C14.2857143,0.540644531 13.7708147,0 13.1357143,0 L1.15,0 C0.514899554,0 0,0.540644531 0,1.2075 L0,10.014375 L3.96579241,5.874375 L7.14168527,9.10464844" fill="#FF9C0B"></path>
+                <path d="M3.96696429,9.24785156 L0,13.4043164 L0,13.7924414 C0,14.4593555 0.514899554,15 1.15,15 L13.1357143,15 C13.7708147,15 14.2857143,14.4593555 14.2857143,13.7925 L14.2857143,5.07404297 L7.14168527,12.542168 L3.96696429,9.24785156" fill="#FB5722"></path>
+                <polyline fill="#F2F2F2" points="0 10.1797305 4.04406723 5.95801727 7.28264426 9.25204822 14.5676785 1.63664063 14.5664835 5.14290444 7.28264426 12.7574755 4.04526223 9.39807782 0 13.6366406 0 10.1797305"></polyline>
+                <polyline fill="#FF9B07" points="5.55535714 10.8965625 5.55563616 7.49126953 3.96696429 9.24779297 5.55535714 10.8965625"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>
