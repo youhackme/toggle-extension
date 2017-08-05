@@ -4,6 +4,7 @@
  * @param {function(string)} callback - called when the URL of the current tab
  *   is found.
  */
+
 function getCurrentTabUrl (callback) {
   // Query filter to be passed to chrome.tabs.query - see
   // https://developer.chrome.com/extensions/tabs#method-query
@@ -33,8 +34,21 @@ function renderStatus (statusText) {
 document.addEventListener('DOMContentLoaded', function () {
 
   getCurrentTabUrl(function (url) {
+
     // Put the image URL in Google search.
     renderStatus('Analyzing ' + url);
 
+    $.ajax({
+      url: 'http://toggle.app/site/http://bridge86.qodeinteractive.com/'
+    }).done(function (data) {
+      console.log(data);
+      // Put the image URL in Google search.
+      renderStatus('Ajax completed');
+    }).always(function () {
+      console.log('complete');
+    });
+
   });
 });
+
+
