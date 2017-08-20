@@ -41,9 +41,21 @@ document.addEventListener('DOMContentLoaded', function () {
     $.ajax({
       url: 'http://toggle.app/site/http://bridge86.qodeinteractive.com/'
     }).done(function (data) {
-      console.log(data);
+      console.log(data.application);
       // Put the image URL in Google search.
-      renderStatus('Ajax completed');
+      var data = JSON.parse(data);
+
+      var technologiestList = '';
+
+      $.each(data.technologies.applications, function (key, application) {
+
+        technologiestList = technologiestList +'<li> <a class="button" target="_blank" href="' + application.website + '"> <img class="app-icon" src="' + application.icon + '">' + application.name + ' </a> </li>';
+
+      });
+
+      $('ul#technologies').html(technologiestList);
+
+      renderStatus('completed');
     }).always(function () {
       console.log('complete');
     });
