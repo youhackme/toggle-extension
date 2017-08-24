@@ -43,19 +43,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }).done(function (data) {
       console.log(data.application);
       // Put the image URL in Google search.
-     // var data = JSON.parse(data);
+      // var data = JSON.parse(data);
 
       var technologiestList = '';
 
+      try {
 
+        if (data.technologies.applications !== 0 || typeof data.technologies.applications != 'undefined') {
+          $.each(data.technologies.applications, function (key, application) {
 
-      $.each(data.technologies.applications, function (key, application) {
+            technologiestList = technologiestList + '<li> <a class="button" target="_blank" href="' + application.website + '"> <img class="app-icon" src="' + application.icon + '">' + application.name + ' </a> </li>';
+          });
 
-        technologiestList = technologiestList + '<li> <a class="button" target="_blank" href="' + application.website + '"> <img class="app-icon" src="' + application.icon + '">' + application.name + ' </a> </li>';
+        } else {
+          technologiestList = 'No technologies found';
+        }
+        $('ul#technologies').html(technologiestList);
 
-      });
-
-      $('ul#technologies').html(technologiestList);
+      } catch (e) {
+        $('ul#technologies').html('An error occured: ' + e.message);
+      }
 
       renderStatus('completed');
     }).always(function () {
