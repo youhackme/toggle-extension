@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderStatus('Analyzing ' + url);
 
     $.ajax({
-      url: 'https://alpha.toggle.me/site/' + url
+      url: 'https://alpha.toggle.me/site/?url=' + url
     }).done(function (data) {
       console.log(data.application);
       // Put the image URL in Google search.
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $('ul#technologies').html(technologiestList);
 
       } catch (e) {
-        $('ul#technologies').html('An error occured: ' + e.message);
+        $('ul#technologies').html('An error occured: ' + e.message + JSON.stringify(data) + ' URL:' + url);
       }
 
       renderStatus('completed');
