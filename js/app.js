@@ -39,36 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
     renderStatus('Analyzing ' + url);
 
     $.ajax({
-      url: 'https://alpha.toggle.me/site/?url=' + url
+      url: 'http://toggle.app/scan?url=' + url
     }).done(function (data) {
-      console.log(data.application);
-      // Put the image URL in Google search.
-      // var data = JSON.parse(data);
 
-      var technologiestList = '';
+      $('.container__wrapper').html(data);
 
-      try {
-
-        if (data.technologies.applications !== 0 || typeof data.technologies.applications != 'undefined') {
-          $.each(data.technologies.applications, function (key, application) {
-
-            technologiestList = technologiestList + '<li> <a class="button" target="_blank" href="' + application.website + '"> <img class="app-icon" src="' + application.icon + '">' + application.name + ' </a> </li>';
-          });
-
-        } else {
-          technologiestList = 'No technologies found';
-        }
-        $('ul#technologies').html(technologiestList);
-
-      } catch (e) {
-        $('ul#technologies').html('An error occured: ' + e.message + JSON.stringify(data) + ' URL:' + url);
-      }
-
-      renderStatus('completed');
-    }).always(function () {
-      console.log('complete');
     });
-
   });
 });
 
