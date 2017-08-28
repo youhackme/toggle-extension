@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderStatus('Analyzing ' + url);
 
     $.ajax({
-      url: 'http://toggle.app/scan?url=' + url
+      url: 'https://alpha.toggle.me/scan?url=' + url
     }).done(function (data) {
 
       $('.container__wrapper').html(data);
