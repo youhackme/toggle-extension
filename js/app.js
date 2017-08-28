@@ -39,15 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
     renderStatus('Analyzing ' + url);
 
     $.ajax({
-      url: 'http://toggle.app/site/http://bridge86.qodeinteractive.com/'
+      url: 'https://alpha.toggle.me/scan?url=' + url
     }).done(function (data) {
-      console.log(data);
-      // Put the image URL in Google search.
-      renderStatus('Ajax completed');
-    }).always(function () {
-      console.log('complete');
-    });
 
+      $('.container__wrapper').html(data);
+
+    });
   });
 });
 
