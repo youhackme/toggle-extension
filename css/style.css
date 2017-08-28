@@ -5,7 +5,8 @@ body {
 
 div.container {
     width: 670px;
-    height: 460px;
+    height:460px;
+    max-height: 460px;
 }
 
 div.container div.container__title {
@@ -25,16 +26,4 @@ div.container div.container__title {
 div.container div.container__title span {
     font-family: Lato-Heavy;
     font-weight: 700;
-}
-
-div.container div.container__primary {
-    float: left;
-    width: 245px;
-    text-align: center;
-    border-right: 1px solid #C9D2D5;
-    height: 460px;
-}
-
-div.container div.container__primary div {
-    line-height: 25px;
 }
