@@ -27,7 +27,7 @@ function getCurrentTabUrl (callback) {
 
 function renderStatus (statusText) {
 
-  document.getElementById('status').textContent = statusText;
+  $('#status').html(statusText);
 
 }
 
@@ -40,9 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $.ajax({
       url: 'https://alpha.toggle.me/scan?url=' + url
+      // url: 'http://toggle.app/scan?url=' + url
     }).done(function (data) {
 
-      $('.container__wrapper').html(data);
+      $('.container__wrapper').removeClass('overlay')
+        .html(data);
 
     });
   });
