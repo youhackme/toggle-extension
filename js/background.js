@@ -2,6 +2,16 @@ var headersCache = {};
 var data = {};
 var result = {};
 
+function parseUrl (url) {
+  var a = document.createElement('a');
+
+  a.href = url;
+
+  a.canonical = a.protocol + '//' + a.host + a.pathname;
+
+  return a;
+}
+
 // Capture response headers
 chrome.webRequest.onCompleted.addListener(function (request) {
 
@@ -36,7 +46,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // console.log(request, sender);
 
   if (request.id == 'analyse_app') {
-    var url = sender.tab.url;
+    var url = parseUrl(sender.tab.url);
+    url = url.canonical;
 
     $.ajax({
       url: 'https://alpha.toggle.me/scan?url=' + url
@@ -47,8 +58,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     });
 
   } else if (request.id === 'test') {
+    var url = parseUrl(request.tab.url);
+    url = url.canonical;
 
-    var url = request.tab.url;
     sendResponse({data: result[url]});
   }
 

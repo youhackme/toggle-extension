@@ -9,12 +9,15 @@
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
   chrome.runtime.sendMessage({id: 'test', tab: tabs[0]}, function (response) {
-    $('.container__wrapper').removeClass('overlay')
-      .html(response.data);
+    if (typeof response.data == 'undefined') {
+      $('.container__wrapper').removeClass('overlay');
+      renderStatus('We were unable to find this url in cache. ');
+    } else {
+      $('.container__wrapper').removeClass('overlay')
+        .html(response.data);
+    }
 
   });
-
-
 
 });
 
