@@ -5,6 +5,19 @@
  *   is found.
  */
 
+
+chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+
+  chrome.runtime.sendMessage({id: 'test', tab: tabs[0]}, function (response) {
+    $('.container__wrapper').removeClass('overlay')
+      .html(response.data);
+
+  });
+
+
+
+});
+
 function getCurrentTabUrl (callback) {
   // Query filter to be passed to chrome.tabs.query - see
   // https://developer.chrome.com/extensions/tabs#method-query
@@ -31,22 +44,13 @@ function renderStatus (statusText) {
 
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
 
   getCurrentTabUrl(function (url) {
 
     // Put the image URL in Google search.
     renderStatus('Analyzing ' + url);
 
-    $.ajax({
-      url: 'https://alpha.toggle.me/scan?url=' + url
-      // url: 'http://toggle.app/scan?url=' + url
-    }).done(function (data) {
-
-      $('.container__wrapper').removeClass('overlay')
-        .html(data);
-
-    });
   });
 });
 

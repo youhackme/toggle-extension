@@ -8,7 +8,28 @@
     "default_popup": "toggle.html",
     "default_title": "Toggle.me detector"
   },
+  "background": {
+    "scripts": [
+      "js/jquery.js",
+      "js/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "js/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
   "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "webRequest",
     "activeTab",
     "https://alpha.toggle.me/",
     "http://toggle.app/",
