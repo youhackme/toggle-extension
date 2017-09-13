@@ -5,6 +5,42 @@
  *   is found.
  */
 
+
+chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+
+  chrome.runtime.sendMessage({id: 'fetch_technologies', tab: tabs[0]}, function (response) {
+    if (typeof response.data == 'undefined') {
+      $('.container__wrapper').removeClass('overlay');
+      renderStatus('We were unable to find this url in cache. ');
+      anotherOne(tabs[0]);
+    } else {
+      setTimeout(function () {
+        $('.container__wrapper').removeClass('overlay')
+          .html(response.data);
+      }, 1000);
+
+    }
+  });
+
+});
+
+function anotherOne (tabs) {
+  chrome.runtime.sendMessage({id: 'hard_analyse_app', tab: tabs}, function (response) {
+    console.log('result tada...');
+    console.log(response);
+    if (typeof response.data == 'undefined') {
+      renderStatus('We were unable to fetch result. ');
+    } else {
+      setTimeout(function () {
+        renderStatus('Yaay, found result.');
+        $('.container__wrapper').removeClass('overlay')
+          .html(response.data);
+      }, 1000);
+
+    }
+  });
+}
+
 function getCurrentTabUrl (callback) {
   // Query filter to be passed to chrome.tabs.query - see
   // https://developer.chrome.com/extensions/tabs#method-query
@@ -19,8 +55,6 @@ function getCurrentTabUrl (callback) {
 
     var url = tab.url;
 
-    console.assert(typeof url == 'string', 'tab.url should be a string');
-
     callback(url);
   });
 }
@@ -31,22 +65,13 @@ function renderStatus (statusText) {
 
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
 
   getCurrentTabUrl(function (url) {
 
     // Put the image URL in Google search.
     renderStatus('Analyzing ' + url);
 
-    $.ajax({
-      url: 'https://alpha.toggle.me/scan?url=' + url
-      // url: 'http://toggle.app/scan?url=' + url
-    }).done(function (data) {
-
-      $('.container__wrapper').removeClass('overlay')
-        .html(data);
-
-    });
   });
 });
 
