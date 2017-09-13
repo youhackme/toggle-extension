@@ -8,18 +8,38 @@
 
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
-  chrome.runtime.sendMessage({id: 'test', tab: tabs[0]}, function (response) {
+  chrome.runtime.sendMessage({id: 'fetch_technologies', tab: tabs[0]}, function (response) {
     if (typeof response.data == 'undefined') {
       $('.container__wrapper').removeClass('overlay');
       renderStatus('We were unable to find this url in cache. ');
+      anotherOne(tabs[0]);
     } else {
-      $('.container__wrapper').removeClass('overlay')
-        .html(response.data);
-    }
+      setTimeout(function () {
+        $('.container__wrapper').removeClass('overlay')
+          .html(response.data);
+      }, 1000);
 
+    }
   });
 
 });
+
+function anotherOne (tabs) {
+  chrome.runtime.sendMessage({id: 'hard_analyse_app', tab: tabs}, function (response) {
+    console.log('result tada...');
+    console.log(response);
+    if (typeof response.data == 'undefined') {
+      renderStatus('We were unable to fetch result. ');
+    } else {
+      setTimeout(function () {
+        renderStatus('Yaay, found result.');
+        $('.container__wrapper').removeClass('overlay')
+          .html(response.data);
+      }, 1000);
+
+    }
+  });
+}
 
 function getCurrentTabUrl (callback) {
   // Query filter to be passed to chrome.tabs.query - see
@@ -34,8 +54,6 @@ function getCurrentTabUrl (callback) {
     var tab = tabs[0];
 
     var url = tab.url;
-
-    console.assert(typeof url == 'string', 'tab.url should be a string');
 
     callback(url);
   });

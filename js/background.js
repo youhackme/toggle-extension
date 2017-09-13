@@ -43,25 +43,37 @@ chrome.webRequest.onCompleted.addListener(function (request) {
 }, {urls: ['http://*/*', 'https://*/*'], types: ['main_frame']}, ['responseHeaders']);
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  // console.log(request, sender);
 
-  if (request.id == 'analyse_app') {
-    var url = parseUrl(sender.tab.url);
-    url = url.canonical;
+  switch (request.id) {
+    case 'analyse_app':
+      var url = parseUrl(sender.tab.url);
+      url = url.canonical;
+      $.ajax({
+        url: 'https://alpha.toggle.me/scan?url=' + url
+      }).done(function (data) {
+        result[url] = data;
+      });
 
-    $.ajax({
-      url: 'https://alpha.toggle.me/scan?url=' + url
-    }).done(function (data) {
+      break;
+    case 'fetch_technologies':
+      var url = parseUrl(request.tab.url);
+      url = url.canonical;
+      sendResponse({data: result[url]});
+      break;
+    case 'hard_analyse_app':
+      console.log('hard analysing..');
+      var url = parseUrl(request.tab.url);
+      url = url.canonical;
+      $.ajax({
+        url: 'https://alpha.toggle.me/scan?url=' + url
+      }).done(function (data) {
+        result[url] = data;
+        sendResponse({data: data});
+      });
 
-      result[url] = data;
+      // SendResponse is now asynchronous
+      return true;
+      break;
 
-    });
-
-  } else if (request.id === 'test') {
-    var url = parseUrl(request.tab.url);
-    url = url.canonical;
-
-    sendResponse({data: result[url]});
   }
-
 });
