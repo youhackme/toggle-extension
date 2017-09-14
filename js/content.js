@@ -19,4 +19,4 @@ var data = {
   headers: ''
 };
 
-chrome.runtime.sendMessage({id: 'analyse_app', subject: data});
+chrome.runtime.sendMessage({id: 'soft_analyse_app', subject: data});
