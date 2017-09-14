@@ -51,6 +51,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       // Are you already present in data store?
 
       if (typeof result[url] == 'undefined') {
+        console.log('saving in datastore');
         $.ajax({
           url: 'https://alpha.toggle.me/scan?url=' + url
         }).done(function (data) {
@@ -58,6 +59,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           // We might cache shit here
           result[url] = data;
         });
+      } else {
+        console.log('Already present in datastore');
       }
 
       break;
