@@ -1,18 +1,11 @@
-/**
- * Get the current URL.
- *
- * @param {function(string)} callback - called when the URL of the current tab
- *   is found.
- */
-
-
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
   chrome.runtime.sendMessage({id: 'fetch_technologies', tab: tabs[0]}, function (response) {
     if (typeof response.data == 'undefined') {
       $('.container__wrapper').removeClass('overlay');
-      renderStatus('We were unable to find this url in cache. ');
-      anotherOne(tabs[0]);
+      // Well result was not cached in our datastore
+      // Lets find it on server
+      fetchResultFromServer(tabs[0]);
     } else {
       setTimeout(function () {
         $('.container__wrapper').removeClass('overlay')
@@ -24,38 +17,18 @@ chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
 });
 
-function anotherOne (tabs) {
+function fetchResultFromServer (tabs) {
   chrome.runtime.sendMessage({id: 'hard_analyse_app', tab: tabs}, function (response) {
-    console.log('result tada...');
-    console.log(response);
+
     if (typeof response.data == 'undefined') {
       renderStatus('We were unable to fetch result. ');
     } else {
       setTimeout(function () {
-        renderStatus('Yaay, found result.');
         $('.container__wrapper').removeClass('overlay')
           .html(response.data);
       }, 1000);
 
     }
-  });
-}
-
-function getCurrentTabUrl (callback) {
-  // Query filter to be passed to chrome.tabs.query - see
-  // https://developer.chrome.com/extensions/tabs#method-query
-  var queryInfo = {
-    active: true,
-    currentWindow: true
-  };
-
-  chrome.tabs.query(queryInfo, function (tabs) {
-
-    var tab = tabs[0];
-
-    var url = tab.url;
-
-    callback(url);
   });
 }
 
@@ -65,14 +38,32 @@ function renderStatus (statusText) {
 
 }
 
-$(document).ready(function () {
+// function getCurrentTabUrl (callback) {
+//   // Query filter to be passed to chrome.tabs.query - see
+//   // https://developer.chrome.com/extensions/tabs#method-query
+//   var queryInfo = {
+//     active: true,
+//     currentWindow: true
+//   };
+//
+//   chrome.tabs.query(queryInfo, function (tabs) {
+//
+//     var tab = tabs[0];
+//
+//     var url = tab.url;
+//
+//     callback(url);
+//   });
+// }
 
-  getCurrentTabUrl(function (url) {
-
-    // Put the image URL in Google search.
-    renderStatus('Analyzing ' + url);
-
-  });
-});
+// $(document).ready(function () {
+//
+//   getCurrentTabUrl(function (url) {
+//
+//     // Put the image URL in Google search.
+//     renderStatus('Analyzing ' + url);
+//
+//   });
+// });
 
 

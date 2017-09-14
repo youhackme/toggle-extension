@@ -45,14 +45,23 @@ chrome.webRequest.onCompleted.addListener(function (request) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   switch (request.id) {
-    case 'analyse_app':
+    case 'soft_analyse_app':
       var url = parseUrl(sender.tab.url);
       url = url.canonical;
-      $.ajax({
-        url: 'https://alpha.toggle.me/scan?url=' + url
-      }).done(function (data) {
-        result[url] = data;
-      });
+      // Are you already present in data store?
+
+      if (typeof result[url] == 'undefined') {
+        console.log('saving in datastore');
+        $.ajax({
+          url: 'https://alpha.toggle.me/scan?url=' + url
+        }).done(function (data) {
+          // check for http code before caching
+          // We might cache shit here
+          result[url] = data;
+        });
+      } else {
+        console.log('Already present in datastore');
+      }
 
       break;
     case 'fetch_technologies':
