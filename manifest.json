@@ -26,6 +26,9 @@
       "run_at": "document_idle"
     }
   ],
+  "web_accessible_resources": [
+    "js/toggleInject.js"
+  ],
   "permissions": [
     "http://*/*",
     "https://*/*",
