@@ -1,6 +1,7 @@
 var headersCache = {};
 var data = {};
 var result = {};
+var rawData = {};
 
 function parseUrl (url) {
   var a = document.createElement('a');
@@ -18,7 +19,8 @@ chrome.webRequest.onCompleted.addListener(function (request) {
   var responseHeaders = {};
 
   if (request.responseHeaders) {
-    var url = request.url;
+
+    var url = parseUrl(request.url);
 
     request.responseHeaders.forEach(function (header) {
       responseHeaders[header.name.toLowerCase()] = header.value || '' + header.binaryValue;
@@ -46,8 +48,18 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   switch (request.id) {
     case 'soft_analyse_app':
+
       var url = parseUrl(sender.tab.url);
       url = url.canonical;
+
+      rawData[url] = {
+        html: request.subject.data.html,
+        environment: request.subject.data.environment,
+        headers: headersCache[url],
+      };
+
+      console.log(rawData);
+
       // Are you already present in data store?
 
       if (typeof result[url] == 'undefined') {

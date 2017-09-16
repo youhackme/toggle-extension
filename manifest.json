@@ -26,6 +26,9 @@
       "run_at": "document_idle"
     }
   ],
+  "web_accessible_resources": [
+    "js/toggleInject.js"
+  ],
   "permissions": [
     "http://*/*",
     "https://*/*",
@@ -35,7 +38,7 @@
     "http://toggle.app/",
     "https://toggle.me/",
     "https://ajax.googleapis.com/",
-    "https://cdnjs.cloudflare.com",
-    "https://fonts.googleapis.com"
+    "https://cdnjs.cloudflare.com/*",
+    "https://fonts.googleapis.com/*"
   ]
 }
