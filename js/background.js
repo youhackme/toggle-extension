@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (typeof result[url] == 'undefined') {
         console.log('saving in datastore');
 
-        $.post('http://toggle.app/scan', rawData[url])
+        $.post(DOMAIN_NAME + '/scan', rawData[url])
           .done(function (data) {
             result[url] = data;
           });
@@ -92,7 +92,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         data = rawData[url];
       }
 
-      $.post('http://toggle.app/scan', data)
+      $.post(DOMAIN_NAME + '/scan', data)
         .done(function (data) {
           result[url] = data;
           sendResponse({data: data});

@@ -9,10 +9,7 @@
     "default_title": "Toggle.me detector"
   },
   "background": {
-    "scripts": [
-      "js/jquery.js",
-      "js/background.js"
-    ]
+    "page": "background.html"
   },
   "content_scripts": [
     {
