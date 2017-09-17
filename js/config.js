@@ -1,0 +1,1 @@
+var DOMAIN_NAME = 'https://alpha.toggle.me';
