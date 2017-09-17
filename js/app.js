@@ -1,14 +1,19 @@
+
+
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
   chrome.runtime.sendMessage({id: 'fetch_technologies', tab: tabs[0]}, function (response) {
+    renderStatus('Analyzing ' + tabs[0].url);
+    fetchResultFromServer(tabs[0]);
     if (typeof response.data == 'undefined') {
       $('.container__wrapper').removeClass('overlay');
       // Well result was not cached in our datastore
       // Lets find it on server
-      fetchResultFromServer(tabs[0]);
+
     } else {
       setTimeout(function () {
-        $('.container__wrapper').removeClass('overlay')
+        $('.container__wrapper')
+          .removeClass('overlay')
           .html(response.data);
       }, 1000);
 

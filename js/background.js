@@ -3,6 +3,10 @@ var data = {};
 var result = {};
 var rawData = {};
 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-106621395-1']);
+_gaq.push(['_trackPageview']);
+
 function parseUrl (url) {
   var a = document.createElement('a');
 
@@ -48,7 +52,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   switch (request.id) {
     case 'soft_analyse_app':
-
+      console.log('Soft analyzing..');
       var url = parseUrl(sender.tab.url);
       url = url.canonical;
 
@@ -56,21 +60,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         html: request.subject.data.html,
         environment: request.subject.data.environment,
         headers: headersCache[url],
+        url: url
       };
-
-      console.log(rawData);
 
       // Are you already present in data store?
 
       if (typeof result[url] == 'undefined') {
         console.log('saving in datastore');
-        $.ajax({
-          url: 'https://alpha.toggle.me/scan?url=' + url
-        }).done(function (data) {
-          // check for http code before caching
-          // We might cache shit here
-          result[url] = data;
-        });
+
+        $.post(DOMAIN_NAME + '/scan', rawData[url])
+          .done(function (data) {
+            result[url] = data;
+          });
+
       } else {
         console.log('Already present in datastore');
       }
@@ -85,12 +87,20 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       console.log('hard analysing..');
       var url = parseUrl(request.tab.url);
       url = url.canonical;
-      $.ajax({
-        url: 'https://alpha.toggle.me/scan?url=' + url
-      }).done(function (data) {
-        result[url] = data;
-        sendResponse({data: data});
-      });
+
+      // This means user triggered plugin before soft analysis was completed
+      var data = {url: url};
+
+      //Well soft analysis did triggered! yaay!
+      if (typeof rawData[url] !== 'undefined') {
+        data = rawData[url];
+      }
+
+      $.post(DOMAIN_NAME + '/scan', data)
+        .done(function (data) {
+          result[url] = data;
+          sendResponse({data: data});
+        });
 
       // SendResponse is now asynchronous
       return true;
