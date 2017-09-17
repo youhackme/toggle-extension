@@ -1,3 +1,5 @@
+
+
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
   chrome.runtime.sendMessage({id: 'fetch_technologies', tab: tabs[0]}, function (response) {

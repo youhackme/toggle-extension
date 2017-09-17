@@ -3,6 +3,10 @@ var data = {};
 var result = {};
 var rawData = {};
 
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-106621395-1']);
+_gaq.push(['_trackPageview']);
+
 function parseUrl (url) {
   var a = document.createElement('a');
 
