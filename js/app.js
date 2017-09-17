@@ -10,7 +10,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
     } else {
       setTimeout(function () {
-        $('.container__wrapper').removeClass('overlay')
+        $('.container__wrapper')
+          .removeClass('overlay')
           .html(response.data);
       }, 1000);
 
