@@ -25,6 +25,7 @@ chrome.webRequest.onCompleted.addListener(function (request) {
   if (request.responseHeaders) {
 
     var url = parseUrl(request.url);
+    url = url.canonical;
 
     request.responseHeaders.forEach(function (header) {
       responseHeaders[header.name.toLowerCase()] = header.value || '' + header.binaryValue;
