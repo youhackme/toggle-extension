@@ -61,7 +61,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         html: request.subject.data.html,
         environment: request.subject.data.environment,
         headers: headersCache[url],
-        url: url
+        url: url,
+        status: headersCache[url].status
       };
 
       // Are you already present in data store?
