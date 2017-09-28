@@ -25,6 +25,7 @@ chrome.webRequest.onCompleted.addListener(function (request) {
   if (request.responseHeaders) {
 
     var url = parseUrl(request.url);
+    url = url.canonical;
 
     request.responseHeaders.forEach(function (header) {
       responseHeaders[header.name.toLowerCase()] = header.value || '' + header.binaryValue;
@@ -60,7 +61,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         html: request.subject.data.html,
         environment: request.subject.data.environment,
         headers: headersCache[url],
-        url: url
+        url: url,
+        status: headersCache[url].status
       };
 
       // Are you already present in data store?
