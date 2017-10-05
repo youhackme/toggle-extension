@@ -70,7 +70,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (typeof result[url] == 'undefined') {
         console.log('saving in datastore');
 
-        $.post(DOMAIN_NAME + '/scan', rawData[url])
+        $.post(DOMAIN_NAME + '/scanv2',rawData[url])
           .done(function (data) {
             result[url] = data;
           });
@@ -98,7 +98,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         data = rawData[url];
       }
 
-      $.post(DOMAIN_NAME + '/scan', data)
+      $.post(DOMAIN_NAME + '/scanv2', data)
         .done(function (data) {
           result[url] = data;
           sendResponse({data: data});
