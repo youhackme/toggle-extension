@@ -8,6 +8,9 @@
     "default_popup": "toggle.html",
     "default_title": "Toggle.me detector"
   },
+  "icons": {
+    "128": "icon128.png"
+  },
   "background": {
     "page": "background.html"
   },
