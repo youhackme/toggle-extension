@@ -8,13 +8,9 @@ _gaq.push(['_setAccount', 'UA-106621395-1']);
 _gaq.push(['_trackPageview']);
 
 function parseUrl (url) {
-  var a = document.createElement('a');
 
-  a.href = url;
+  return encodeURIComponent(url);
 
-  a.canonical = a.protocol + '//' + a.host + a.pathname;
-
-  return a;
 }
 
 // Capture response headers
@@ -25,7 +21,6 @@ chrome.webRequest.onCompleted.addListener(function (request) {
   if (request.responseHeaders) {
 
     var url = parseUrl(request.url);
-    url = url.canonical;
 
     request.responseHeaders.forEach(function (header) {
       responseHeaders[header.name.toLowerCase()] = header.value || '' + header.binaryValue;
@@ -55,7 +50,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     case 'soft_analyse_app':
       console.log('Soft analyzing..');
       var url = parseUrl(sender.tab.url);
-      url = url.canonical;
 
       rawData[url] = {
         html: request.subject.data.html,
@@ -70,7 +64,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (typeof result[url] == 'undefined') {
         console.log('saving in datastore');
 
-        $.post(DOMAIN_NAME + '/scanv2',rawData[url])
+        $.post(DOMAIN_NAME + '/scanv2', rawData[url])
           .done(function (data) {
             result[url] = data;
           });
@@ -82,14 +76,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       break;
     case 'fetch_technologies':
       var url = parseUrl(request.tab.url);
-      url = url.canonical;
       sendResponse({data: result[url]});
       break;
     case 'hard_analyse_app':
       console.log('hard analysing..');
       var url = parseUrl(request.tab.url);
-      url = url.canonical;
-
       // This means user triggered plugin before soft analysis was completed
       var data = {url: url};
 
