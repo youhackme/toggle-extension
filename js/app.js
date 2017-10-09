@@ -5,7 +5,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
     renderStatus('Analyzing ' + tabs[0].url);
 
     if (typeof response.data == 'undefined') {
-      $('.container__wrapper').removeClass('overlay');
+      $('.container__wrapper').addClass('overlay');
       // Well result was not cached in our datastore
       // Lets find it on server
       fetchResultFromServer(tabs[0]);
