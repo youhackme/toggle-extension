@@ -1,14 +1,51 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
+
 <html>
 <head>
-    <title>Toggle - WordPress Theme and Plugin detector</title>
+    <title>Toggle </title>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <style>
+
+        @font-face {
+            font-family: "Proxima Nova Light";
+            src: url("fonts/Proxima/ProximaNova-Light-webfont.eot");
+            src: url("fonts/Proxima/ProximaNova-Light-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Proxima/ProximaNova-Light-webfont.woff") format("woff"), url("fonts/Proxima/ProximaNova-Light-webfont.ttf") format("truetype"), url("fonts/Proxima/ProximaNova-Light-webfont.svg#Proxima Nova Light") format("svg");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Proxima Nova Thin";
+            src: url("fonts/Proxima/ProximaNova-Thin-webfont.eot");
+            src: url("fonts/Proxima/ProximaNova-Thin-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Proxima/ProximaNova-Thin-webfont.woff") format("woff"), url("fonts/Proxima/ProximaNova-Thin-webfont.ttf") format("truetype"), url("fonts/Proxima/ProximaNova-Thin-webfont.svg#Proxima Nova Thin") format("svg");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Proxima Nova";
+            src: url("fonts/Proxima/ProximaNova-Reg-webfont.eot");
+            src: url("fonts/Proxima/ProximaNova-Reg-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Proxima/ProximaNova-Reg-webfont.woff") format("woff"), url("fonts/Proxima/ProximaNova-Reg-webfont.ttf") format("truetype"), url("fonts/Proxima/ProximaNova-Reg-webfont.svg#Proxima Nova") format("svg");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Proxima Nova Semibold";
+            src: url("fonts/Proxima/ProximaNova-Sbold-webfont.eot");
+            src: url("fonts/Proxima/ProximaNova-Sbold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Proxima/ProximaNova-Sbold-webfont.woff") format("woff"), url("fonts/Proxima/ProximaNova-Sbold-webfont.ttf") format("truetype"), url("fonts/Proxima/ProximaNova-Sbold-webfont.svg#Proxima Nova Semibold") format("svg");
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "Proxima Nova Bold";
+            src: url("fonts/Proxima/ProximaNova-Bold-webfont.eot");
+            src: url("fonts/Proxima/ProximaNova-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Proxima/ProximaNova-Bold-webfont.woff") format("woff"), url("fonts/Proxima/ProximaNova-Bold-webfont.ttf") format("truetype"), url("fonts/Proxima/ProximaNova-Bold-webfont.svg#Proxima Nova Bold") format("svg");
+            font-style: normal;
+            font-weight: normal;
+        }
+    </style>
 
     <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/style.css"/>
@@ -85,7 +122,7 @@
 <div class="container" style="padding-right:0;padding-left:0;">
     <div class="container__title">
         <div>
-            <img src="logo.png" alt="logo">
+            <a href="https://toggle.me"><img src="logo.svg" alt="Toggle"></a>
         </div>
     </div>
     <div class="container__wrapper overlay">
