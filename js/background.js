@@ -59,18 +59,25 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         status: headersCache[url].status
       };
 
-      // Are you already present in data store?
+      var html = request.subject.data.html;
+      var found = html.search(/DDoS protection by Cloudflare/i);
 
-      if (typeof result[url] == 'undefined') {
-        console.log('saving in datastore');
+      // Bypass cloudflare
+      if (found === -1) {
+        // Are you already present in data store?
+        if (typeof result[url] == 'undefined') {
+          console.log('saving in datastore');
 
-        $.post(DOMAIN_NAME + '/scanv2', rawData[url])
-          .done(function (data) {
-            result[url] = data;
-          });
+          $.post(DOMAIN_NAME + '/scanv2', rawData[url])
+            .done(function (data) {
+              result[url] = data;
+            });
 
+        } else {
+          console.log('Already present in datastore');
+        }
       } else {
-        console.log('Already present in datastore');
+        console.log('Cloudflare detected');
       }
 
       break;
