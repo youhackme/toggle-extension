@@ -37,6 +37,7 @@ chrome.webRequest.onCompleted.addListener(function (request) {
 
       Object.keys(responseHeaders).forEach(function (header) {
         headersCache[url][header] = responseHeaders[header];
+        headersCache[url].status = request.statusCode;
       });
 
     }
@@ -59,7 +60,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         status: headersCache[url].status
       };
 
-      if (headersCache[url].status == '200') {
+      if (headersCache[url].status == '200' || headersCache[url].status == '304') {
         // Are you already present in data store?
         if (typeof result[url] == 'undefined') {
           console.log('saving in datastore');
@@ -73,7 +74,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           console.log('Already present in datastore');
         }
       } else {
-        console.log('HTTP status is not 200');
+        console.log('HTTP status is not 200 or 304. It is ' + headersCache[url].status);
       }
 
       break;
