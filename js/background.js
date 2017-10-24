@@ -59,11 +59,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         status: headersCache[url].status
       };
 
-      var html = request.subject.data.html;
-      var found = html.search(/DDoS protection by Cloudflare/i);
-
-      // Bypass cloudflare
-      if (found === -1) {
+      if (headersCache[url].status == '200') {
         // Are you already present in data store?
         if (typeof result[url] == 'undefined') {
           console.log('saving in datastore');
@@ -77,7 +73,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           console.log('Already present in datastore');
         }
       } else {
-        console.log('Cloudflare detected');
+        console.log('HTTP status is not 200');
       }
 
       break;
