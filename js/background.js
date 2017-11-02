@@ -92,7 +92,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       break;
     case 'fetch_technologies':
       var url = parseUrl(request.tab.url);
-      if (typeof result[url].data === 'undefined') {
+      if (typeof result[url] === 'undefined') {
         result[url] = {};
       }
 
