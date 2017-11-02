@@ -92,7 +92,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       break;
     case 'fetch_technologies':
       var url = parseUrl(request.tab.url);
-      result[url] = {};
+      if (typeof result[url].data === 'undefined') {
+        result[url] = {};
+      }
+
       sendResponse({data: result[url].data});
       break;
     case 'hard_analyse_app':
@@ -106,7 +109,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       //   data = rawData[url];
       // }
       // Not sure why the above code is present.
-
       toggle.log('Current status of soft analysis before hard analysis');
 
       var totalCycles = 0;
