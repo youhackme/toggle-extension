@@ -7,7 +7,15 @@ var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-106621395-1']);
 _gaq.push(['_trackPageview']);
 
+var toggle = {
 
+  log: function (data) {
+    if (DEBUG) {
+      console.log(data);
+    }
+  }
+
+};
 
 function parseUrl (url) {
 
@@ -51,7 +59,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   switch (request.id) {
     case 'soft_analyse_app':
-      console.log('Soft analyzing..');
+      toggle.log('Soft analyzing..');
       var url = parseUrl(sender.tab.url);
 
       rawData[url] = {
@@ -65,7 +73,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (headersCache[url].status == '200' || headersCache[url].status == '304') {
         // Are you already present in data store?
         if (typeof result[url] == 'undefined') {
-          console.log('Saving ' + url + ' in datastore');
+          toggle.log('Saving ' + url + ' in datastore');
           result[url] = {};
           result[url].status = 'pending';
           $.post(DOMAIN_NAME + '/scanv2', rawData[url])
@@ -75,10 +83,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             });
 
         } else {
-          console.log(url + ' Already present in datastore');
+          toggle.log(url + ' Already present in datastore');
         }
       } else {
-        console.log('HTTP status is not 200 or 304. It is ' + headersCache[url].status);
+        toggle.log('HTTP status is not 200 or 304. It is ' + headersCache[url].status);
       }
 
       break;
@@ -88,7 +96,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       sendResponse({data: result[url].data});
       break;
     case 'hard_analyse_app':
-      console.log('hard analysing..');
+      toggle.log('hard analysing..');
       var url = parseUrl(request.tab.url);
       // This means user triggered plugin before soft analysis was completed
       var data = {url: url};
@@ -99,16 +107,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       // }
       // Not sure why the above code is present.
 
-      console.log('Current status of soft analysis before hard analysis');
+      toggle.log('Current status of soft analysis before hard analysis');
 
       var totalCycles = 0;
       var analysisStatus = setInterval(checkIfSoftAnalysisCompleted, 1000);
 
     function checkIfSoftAnalysisCompleted () {
       totalCycles++;
-      console.log(result[url].status);
+      toggle.log(result[url].status);
       if (totalCycles > 15 || typeof result[url].status == 'undefined') {
-        console.log('Well, result was not obtained within 7 seconds, we are going to fetch it ourselves.');
+        toggle.log('Well, result was not obtained within 7 seconds, we are going to fetch it ourselves.');
         clearInterval(analysisStatus);
         // Well, hard analysis is taking too much time,
         // Let's do a manual run instead
@@ -121,7 +129,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       } else {
         if (result[url].status == 'sucess') {
           clearInterval(analysisStatus);
-          console.log('Horray! No need to trigger another call to server now!');
+          toggle.log('Horray! No need to trigger another call to server now!');
           sendResponse({data: result[url].data});
         }
       }
@@ -134,5 +142,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   }
 
-  console.log(result);
+  toggle.log(result);
 });
