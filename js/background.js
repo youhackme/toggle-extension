@@ -118,7 +118,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       totalCycles++;
       toggle.log(result[url].status);
       if (totalCycles > 15 || typeof result[url].status == 'undefined') {
-        toggle.log('Well, result was not obtained within 7 seconds, we are going to fetch it ourselves.');
+        toggle.log('Well, result was not obtained within 15 seconds, we are going to fetch it ourselves.');
         clearInterval(analysisStatus);
         // Well, hard analysis is taking too much time,
         // Let's do a manual run instead
