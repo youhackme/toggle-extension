@@ -80,7 +80,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             .done(function (data) {
               result[url].data = data;
               result[url].status = 'sucess';
-            });
+            }).fail(function () {
+            result[url].status = undefined;
+            sendResponse({data: '<h5 class="error">We are currently unable to analyse this website. Please try again later.</h5>'});
+          });
 
         } else {
           toggle.log(url + ' Already present in datastore');
@@ -126,7 +129,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           .done(function (data) {
             result[url].data = data;
             sendResponse({data: data});
-          });
+          }).fail(function () {
+          result[url].status = undefined;
+          sendResponse({data: '<h5 class="error">We are currently unable to analyse this website. Please try again later.</h5>'});
+        });
 
       } else {
         if (result[url].status == 'sucess') {
