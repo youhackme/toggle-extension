@@ -94,3 +94,9 @@ div.container__title img {
 a:focus {
     outline: none !important;
 }
+
+h5.error {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 100px;
+}
