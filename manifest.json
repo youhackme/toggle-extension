@@ -36,7 +36,7 @@
     "activeTab",
     "https://alpha.toggle.me/",
     "http://toggle.app/",
-    "https://toggle.me/",
+    "https://toggle.me/"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }
