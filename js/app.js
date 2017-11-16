@@ -1,7 +1,7 @@
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
   chrome.runtime.sendMessage({id: 'fetch_technologies', tab: tabs[0]}, function (response) {
-    renderStatus('Analyzing ' + tabs[0].url + '. Hang tight..');
+    renderStatus('Analyzing ' + tabs[0].url);
 
     if (typeof response.data == 'undefined') {
       $('.container__wrapper').addClass('overlay');
