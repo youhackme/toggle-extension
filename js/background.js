@@ -76,7 +76,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           toggle.log('Saving ' + url + ' in datastore');
           result[url] = {};
           result[url].status = 'pending';
-          $.post(DOMAIN_NAME + '/scanv2', rawData[url])
+          $.post(DOMAIN_NAME + '/extension', rawData[url])
             .done(function (data) {
               result[url].data = data;
               result[url].status = 'sucess';
@@ -125,7 +125,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         clearInterval(analysisStatus);
         // Well, hard analysis is taking too much time,
         // Let's do a manual run instead
-        $.post(DOMAIN_NAME + '/scanv2', data)
+        $.post(DOMAIN_NAME + '/extension', data)
           .done(function (data) {
             result[url].data = data;
             sendResponse({data: data});
