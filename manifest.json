@@ -20,6 +20,11 @@
         "http://*/*",
         "https://*/*"
       ],
+      "exclude_matches": [
+        "https://alpha.toggle.me/",
+        "http://toggle.test/",
+        "https://toggle.me/"
+      ],
       "js": [
         "js/content.js"
       ],
@@ -33,11 +38,7 @@
     "http://*/*",
     "https://*/*",
     "webRequest",
-    "activeTab",
-    "https://alpha.toggle.me/",
-    "http://toggle.app/",
-    "https://toggle.me/"
+    "activeTab"
   ],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
-
 }
