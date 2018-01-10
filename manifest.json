@@ -1,6 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Toggle.me - Technology detector",
+  "name": "Toggle.me - Technology Detector",
+  "short_name": "Toggle Technology Detector",
   "description": "Find out which WordPress theme, plugins, applications, technologies your favorite sites are using.",
   "version": "1.0.0",
   "browser_action": {
