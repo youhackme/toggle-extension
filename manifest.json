@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Toggle",
   "short_name": "Toggle",
-  "description": "Find out what WordPress theme, plugins, applications, technologies your favorite sites are using!",
+  "description": "Find out what WordPress themes, plugins, applications, technologies your favorite sites are using!",
   "version": "1.0.1",
   "homepage_url": "https://toggle.me",
   "browser_action": {
